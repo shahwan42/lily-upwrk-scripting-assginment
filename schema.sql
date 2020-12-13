@@ -1,0 +1,7 @@
+CREATE TABLE IF NOT EXISTS "result" (
+	"id"	INTEGER PRIMARY KEY AUTOINCREMENT,
+	"Domain"	TEXT,
+	"URL"	TEXT,
+	"Relevant?"	TEXT,
+	"Email"	TEXT
+)
