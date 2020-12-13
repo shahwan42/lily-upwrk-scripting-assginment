@@ -11,4 +11,4 @@ Read urls from sheet.csv and get emails found in their domain then save them to 
 
 ## Example output
 
-![Output data example](./example_output.png)
+![Output data example](./example.png)
