@@ -29,6 +29,7 @@ def get_emails(domain: str):
     if resp.status_code == 200:
         print("Found")
         emails = resp.json().get("emails")
+        email_class = resp.json().get("email_class")
 
         pprint.pprint(resp.json(), indent=4)
         for email in emails:
@@ -37,7 +38,9 @@ def get_emails(domain: str):
                 "URL": domain,
                 "Relevant?": "yes",
                 "Email": email,
+                "Verified?": "yes" if email_class == "verified" else "no",
             }
+            print("To append to results:")
             pprint.pprint(row, indent=4)
             result.append(row)
 
@@ -68,12 +71,15 @@ def main():
                         print("Saving: ", el)
                         # save el in db
                         cursor.execute(
-                            "INSERT INTO result ('Domain','URL','Relevant?','Email') VALUES (?, ?, ?, ?)",
+                            "INSERT INTO result "
+                            "('Domain','URL','Relevant?','Email','Verified?') "
+                            "VALUES (?, ?, ?, ?, ?)",
                             (
                                 el.get("Domain"),
                                 el.get("URL"),
                                 el.get("Relevant?"),
                                 el.get("Email"),
+                                el.get("Verified?"),
                             ),
                         )
                 line_count += 1
